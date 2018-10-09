@@ -15,7 +15,7 @@ import com.cl.model.Customer;
 @RestController
 public class CustomerController {
 
-    @RequestMapping(value = "/customers/", method = RequestMethod.POST)
+    @RequestMapping(value = "/customers/", method = RequestMethod.GET)
     public Collection<Customer> findByLastName(@RequestParam("name") final String lastName) {
     	//TODO
     	List<Customer> customers = new ArrayList<Customer>();
@@ -27,6 +27,11 @@ public class CustomerController {
     	//TODO
     	final Customer customer = new Customer("123", "Bob", "Kelso");
     	return customer;
+    }
+
+    @RequestMapping(value = "/customers", method = RequestMethod.POST)
+    public void create(@RequestParam("customer") final Customer customer) {   	
+    	//TODO
     }
     
     @RequestMapping(value = "/customers", method = RequestMethod.PUT)
