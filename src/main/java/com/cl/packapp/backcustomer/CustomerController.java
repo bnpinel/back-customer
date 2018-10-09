@@ -1,42 +1,50 @@
 package com.cl.packapp.backcustomer;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cl.packapp.backcustomer.dao.CustomerRepository;
 import com.cl.packapp.backcustomer.model.Customer;
 
 @RestController
 public class CustomerController {
 
+	@Autowired
+	private CustomerRepository repository;
+	
     @RequestMapping(value = "/customers/", method = RequestMethod.GET)
     public Collection<Customer> findByLastName(@RequestParam("name") final String lastName) {
-    	//TODO
-    	List<Customer> customers = new ArrayList<Customer>();
+    	final List<Customer> customers = repository.findByLastName(lastName);
     	return customers;
     }
     
     @RequestMapping(value = "/customers/{id}", method = RequestMethod.GET)
-    public Customer findById(@PathVariable("id") final int id) {   	
-    	//TODO
-    	final Customer customer = new Customer("123", "Bob", "Kelso");
-    	return customer;
+    public Customer findById(@PathVariable("id") final String id) {
+    	final Optional<Customer> customer = repository.findById(id);
+    	return customer.get();
     }
 
     @RequestMapping(value = "/customers", method = RequestMethod.POST)
-    public void create(@RequestParam("customer") final Customer customer) {   	
-    	//TODO
-    }
+    public ResponseEntity<?> create(@RequestBody final Customer customer) {   	
+    	repository.save(customer);
+        return new ResponseEntity<Customer>(customer, HttpStatus.CREATED);
+   }
     
-    @RequestMapping(value = "/customers", method = RequestMethod.PUT)
-    public void save(@RequestParam("customer") final Customer customer) {   	
-    	//TODO
+    @RequestMapping(value = "/customers/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> save(@PathVariable("id") final String id, @RequestBody final Customer customer) {   	
+    	customer.setId(id);
+    	repository.save(customer);
+        return new ResponseEntity<Customer>(customer, HttpStatus.OK);    
     }
-    
 }

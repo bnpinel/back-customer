@@ -10,7 +10,12 @@ public class Customer {
     	super();
     }
     
-    public Customer(String id, String firstName, String lastName) {
+    public Customer(final String id) {
+    	super();
+    	this.id = id;
+    }
+    
+    public Customer(final String id, final String firstName, final String lastName) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -21,7 +26,7 @@ public class Customer {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	public void setFirstName(final String firstName) {
 		this.firstName = firstName;
 	}
 
@@ -29,7 +34,7 @@ public class Customer {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	public void setLastName(final String lastName) {
 		this.lastName = lastName;
 	}
 
@@ -37,7 +42,7 @@ public class Customer {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(final String id) {
 		this.id = id;
 	}
 
