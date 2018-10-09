@@ -4,7 +4,7 @@
 mvn clean package
 
 ## Launch
-java -jar target/back-customers-0.0.1-SNAPSHOT.jar
+java -jar target/back-customer-0.0.1-SNAPSHOT.jar
 
-## Docker
+## Dockers
 sudo ./build.sh version
