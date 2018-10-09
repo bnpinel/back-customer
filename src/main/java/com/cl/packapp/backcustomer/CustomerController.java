@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cl.packapp.backcustomer.dao.CustomerRepository;
@@ -23,15 +24,14 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerRepository repository;
-
-	final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 	
     @RequestMapping(value = "/customers/", method = RequestMethod.GET)
-    public Collection<Customer> find(@Param("name") final String lastName) {
-    	if(lastName != null) {
-    		return repository.findByLastName(lastName);
+    public Collection<Customer> find(@RequestParam("name") final String lastName) {
+    	if(lastName == null || lastName.isEmpty()) {
+    		return repository.findAll();
+    	} else {
+       		return repository.findByLastName(lastName);    		
     	}
-    	return repository.findAll();
     }
     
     @RequestMapping(value = "/customers/{id}", method = RequestMethod.GET)
@@ -42,7 +42,6 @@ public class CustomerController {
 
     @RequestMapping(value = "/customers", method = RequestMethod.POST)
     public ResponseEntity<?> create(@RequestBody final Customer customer) {
-    	logger.debug("Save >>> " + customer);
     	repository.save(customer);
         return new ResponseEntity<Customer>(customer, HttpStatus.CREATED);
    }
@@ -50,7 +49,6 @@ public class CustomerController {
     @RequestMapping(value = "/customers/{id}", method = RequestMethod.PUT)
     public ResponseEntity<?> save(@PathVariable("id") final String id, @RequestBody final Customer customer) {   	
     	customer.setId(id);
-    	logger.debug("Save >>> " + customer);
     	repository.save(customer);
         return new ResponseEntity<Customer>(customer, HttpStatus.OK);    
     }
