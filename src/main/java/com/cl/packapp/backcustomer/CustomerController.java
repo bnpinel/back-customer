@@ -1,4 +1,4 @@
-package com.cl;
+package com.cl.packapp.backcustomer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cl.model.Customer;
+import com.cl.packapp.backcustomer.model.Customer;
 
 @RestController
 public class CustomerController {

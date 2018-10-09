@@ -1,4 +1,4 @@
-package com.cl.model;
+package com.cl.packapp.backcustomer.model;
 
 public class Customer {
 	
