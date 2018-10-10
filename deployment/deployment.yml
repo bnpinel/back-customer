@@ -40,21 +40,3 @@ spec:
     port: 9091
     targetPort: 9091
     protocol: TCP
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: back-customer-ingress
-  namespace: packapp04
-spec:
-  rules:
-  - host: belem42.hackathon-container.com
-    http:
-      paths:
-      - backend:
-          serviceName: back-customer-svc
-          servicePort: 9977
-      - path: /customers
-        backend:
-          serviceName: back-customer-svc
-          servicePort: 9091
