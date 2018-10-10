@@ -1,0 +1,6 @@
+server.port = 9091
+
+# Mongo server
+spring.data.mongodb.host=mongo-belem42.hackathon-container.com
+spring.data.mongodb.port=80
+
