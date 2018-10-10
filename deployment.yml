@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-customer-deployment
+  namespace: packapp04
+spec:
+  selector:
+    matchLabels:
+      app: back-customer
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: back-customer
+    spec:
+      containers:
+      - name: back-customer
+        image: registry.hackathon-container.com/packapp04/back-customer:0.3
+        ports:
+        - containerPort: 9091
+      - name: mongodb
+        image: mongo:3.6.8
+        ports:
+        - name: mongo
+          containerPort: 27017
+      imagePullSecrets:
+      - name: registry
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-customer-svc
+  namespace: packapp04
+spec:
+  type: ClusterIP
+  selector:
+    app: back-customer
+  ports:
+  - name: back-customer-ports 
+    port: 9091
+    targetPort: 9091
+    protocol: TCP
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: back-customer-ingress
+  namespace: packapp04
+spec:
+  rules:
+  - host: belem42.hackathon-container.com
+    http:
+      paths:
+      - backend:
+          serviceName: back-customer-svc
+          servicePort: 9977
+      - path: /customers
+        backend:
+          serviceName: back-customer-svc
+          servicePort: 9091
