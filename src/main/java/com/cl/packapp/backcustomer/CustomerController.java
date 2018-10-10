@@ -26,7 +26,7 @@ public class CustomerController {
 	private CustomerRepository repository;
 	
     @RequestMapping(value = "/customers/", method = RequestMethod.GET)
-    public Collection<Customer> find(@RequestParam("name") final String lastName) {
+    public Collection<Customer> find(@RequestParam(name = "name", required = false) final String lastName) {
     	if(lastName == null || lastName.isEmpty()) {
     		return repository.findAll();
     	} else {
