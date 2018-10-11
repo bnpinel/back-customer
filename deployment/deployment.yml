@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: back-customer
-        image: registry.hackathon-container.com/packapp04/back-customer:1.0
+        image: registry.hackathon-container.com/packapp04/back-customer:2.0
         ports:
         - containerPort: 9091
       imagePullSecrets:
