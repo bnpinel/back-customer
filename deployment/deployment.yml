@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app: back-customer
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -15,14 +15,9 @@ spec:
     spec:
       containers:
       - name: back-customer
-        image: registry.hackathon-container.com/packapp04/back-customer:0.3
+        image: registry.hackathon-container.com/packapp04/back-customer:1.0
         ports:
         - containerPort: 9091
-      - name: mongodb
-        image: mongo:3.6.8
-        ports:
-        - name: mongo
-          containerPort: 27017
       imagePullSecrets:
       - name: registry
 ---
